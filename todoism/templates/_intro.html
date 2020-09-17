@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="center">
+        <h2 class="teal-text text-lighten-3">Todoism</h2>
+        <h5 class="light">嗯，今天是个上分的好日子</h5>
+        <div class="row center-block">
+            <div class="fake-browser-ui hoverable card-panel">
+                <div class="frame">
+                    <span class="red"></span>
+                    <span class="blue"></span>
+                    <span class="orange"></span>
+                </div>
+                <img class="responsive-img" src="{{ url_for('static', filename='demo.png') }}">
+            </div>
+        </div>
+        <div class="row">
+            <a href="#login" class="btn waves-effect waves-light red">Get start</a>
+        </div>
+    </div>
+{% endblock %}
