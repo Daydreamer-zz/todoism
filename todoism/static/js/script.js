@@ -88,7 +88,7 @@ $(document).ready(function () {
 
     // 设置默认location
     if (window.location.hash === '') {
-        window.location.hash = '#login';
+        window.location.hash = '#intro';
     } else {
         $(window).trigger('hashchange');  // 触发hashchange事件，重新加载页面
     }
