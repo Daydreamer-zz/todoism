@@ -62,11 +62,12 @@ $(document).ready(function () {
         display_dashboard();
     }
 
+
+
     // 监听页面路由变化
     $(window).bind('hashchange', function () {
         var hash = window.location.hash.replace('#', '');
         var url = null;
-        console.log(hash);
         if (hash == 'login') {
             url = login_page_url;
         } else if (hash == 'app') {
@@ -86,13 +87,17 @@ $(document).ready(function () {
         })
     })
 
+
+
     // 设置默认location
     if (window.location.hash === '') {
         window.location.hash = '#intro';
     } else {
         $(window).trigger('hashchange');  // 触发hashchange事件，重新加载页面
     }
-    
+
+
+
     // 登录
     function login_user() {
         var username = $('#username-input').val();
@@ -107,7 +112,7 @@ $(document).ready(function () {
         };
         $.ajax({
             type: 'POST',
-            url: login_page_url,
+            url: login_url,
             data: JSON.stringify(data),
             contentType: 'application/json;charset=UTF-8',
             success: function (data) {
@@ -118,6 +123,20 @@ $(document).ready(function () {
         
     }
     $(document).on('click', '#login-btn', login_user);
+
+
+
+    // 登出
+    $(document).on('click', '#logout-btn', function () {
+        $.ajax({
+            type: 'GET',
+            url: logout_url,
+            success: function (data) {
+                window.location.hash = '#intro';
+                M.toast({html :data.message});
+            }
+        });
+    });
 
 
 
@@ -133,4 +152,24 @@ $(document).ready(function () {
         })
     }
     $(document).on('click', '#register-btn', register);
+
+    // 添加新的item
+    function new_item(e) {
+        var $input = $('#item-input');
+        var value = $input.val().trim(); // 获取输入框内容，同时去除内容首尾空格
+        if (e.which !== ENTER_KEY || !value) {
+            return ;
+        }
+        $input.focus().val('');
+        $.ajax({
+            type: 'POST',
+            url: new_item_url,
+            data: JSON.stringify({'body': value}), // 将输入的内容转换为json字符串
+            contentType: 'application/json;charset=UTF-8',
+            success: function (data) {
+                M.toast({html: data.message, classes: 'rounded'});
+                $('.items').append(data.html)
+            }
+        });
+    }
 });
