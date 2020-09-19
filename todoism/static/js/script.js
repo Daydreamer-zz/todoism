@@ -168,8 +168,11 @@ $(document).ready(function () {
             contentType: 'application/json;charset=UTF-8',
             success: function (data) {
                 M.toast({html: data.message, classes: 'rounded'});
-                $('.items').append(data.html)
+                $('.items').append(data.html);
+                activeM();
+
             }
         });
     }
+    $(document).on('keyup', '#item-input', new_item.bind(this));
 });
